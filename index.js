@@ -585,7 +585,8 @@ app.get('/picture', async function(request, response) {
     var parameters = urlParts.query;
     var pictureId = parameters.id;
   
-    var picture = await instance.pictures(pictureId);
+		var picture = await instance.pictures(pictureId);
+		var owner = await instance.ownerOf(pictureId);
 
     response.json(
       { 
@@ -594,27 +595,60 @@ app.get('/picture', async function(request, response) {
 				name: `${picture[2]}`,
 				image: `${picture[0]}`,
 				description: `${picture[3]}`,
+				owner: `${owner}`
       });
 });
 
+app.get('/status', async function(request, response) {
+  
+	var urlParts = url.parse(request.url, true);
+	var parameters = urlParts.query;
+	var pictureId = parameters.id;
+
+	// var picture = await instance.pictures(pictureId);
+	var owner = await instance.ownerOf(pictureId);
+	// var picture = await instance.pictures()
+
+	response.json(
+		{ 
+			// id: `${pictureId}`,
+			// publisher: `${picture[1]}`,
+			// name: `${picture[2]}`,
+			// image: `${picture[0]}`,
+			// description: `${picture[3]}`,
+			owner: `${owner}`
+		});
+
+	console.log(picture)
+
+});
+
+
 app.get('/getData', async function(request, response) {
 
+	console.time('処理時間：');
 	var data = []
 	var totalSupply = await instance.totalSupply();
 	var n = totalSupply.c[0]
 	
-	for(let i =1; i<= n; i++){
+
+	// for(let i =1; i<= n; i++){
+		for(let i =1; i<= n; i++){
 		var picture = await instance.pictures(i);
+		//ここにowner入れると処理が重くなる
+		var owner = await instance.ownerOf(i);
 		data.push({
 			id: i,
 			publisher: `${picture[1]}`,
 			name: `${picture[2]}`,
 			image: `${picture[0]}`,
 			description: `${picture[3]}`,
+			owner: `${owner}`
 		})
 		console.log(data)
 	}
 	response.json(data)
+	console.timeEnd('処理時間：');
 });
 
 app.get('/', async function(request, response) {
@@ -629,7 +663,7 @@ app.get('/', async function(request, response) {
 	
 });
 
-// app.listen(3000, () => console.log('http://localhost:3000/'));
+app.listen(3000, () => console.log('http://localhost:3000/'));
 
 app.get('/listen', async function(request, response) {
     var urlParts = url.parse(request.url, true);
