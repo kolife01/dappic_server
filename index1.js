@@ -36,24 +36,6 @@ var abi =[
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_tokenId",
-				"type": "uint256"
-			},
-			{
-				"name": "_price",
-				"type": "uint128"
-			}
-		],
-		"name": "addSellingItem",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
 				"name": "to",
 				"type": "address"
 			},
@@ -63,20 +45,6 @@ var abi =[
 			}
 		],
 		"name": "approve",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "cancelSellingItem",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -103,42 +71,6 @@ var abi =[
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "purchaseSellingItem",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "Transfer",
-		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -177,6 +109,28 @@ var abi =[
 			}
 		],
 		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
 		"type": "event"
 	},
 	{
@@ -457,18 +411,6 @@ var abi =[
 			{
 				"name": "description",
 				"type": "string"
-			},
-			{
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"name": "seller",
-				"type": "address"
-			},
-			{
-				"name": "price",
-				"type": "uint128"
 			}
 		],
 		"payable": false,
@@ -531,29 +473,6 @@ var abi =[
 		"constant": true,
 		"inputs": [
 			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "tokenIdToSellingItem",
-		"outputs": [
-			{
-				"name": "seller",
-				"type": "address"
-			},
-			{
-				"name": "price",
-				"type": "uint128"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
 				"name": "owner",
 				"type": "address"
 			},
@@ -577,11 +496,30 @@ var abi =[
 		"constant": true,
 		"inputs": [
 			{
-				"name": "_curseId",
+				"name": "tokenId",
 				"type": "uint256"
 			}
 		],
 		"name": "tokenURI",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_curseId",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenURI2",
 		"outputs": [
 			{
 				"name": "",
@@ -624,7 +562,7 @@ var abi =[
 
 
 //コントラクトアドレス設定する
-var address = "0x056939771022e45003feda84f7f4c455126f3c54";
+var address = "0x2b2683c012cae4eb037dcb3fdf81ad8016c84daf";
 
 var contract = web3.eth.contract(abi);
 var instance = contract.at(address);
