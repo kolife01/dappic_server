@@ -9,29 +9,8 @@ var web3 = new Web3();
 web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/"));
 
 //abi 設定する
-var abi =[
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "operator",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "approved",
-				"type": "bool"
-			}
-		],
-		"name": "ApprovalForAll",
-		"type": "event"
-	},
+var abi =
+[
 	{
 		"constant": false,
 		"inputs": [
@@ -96,6 +75,10 @@ var abi =[
 			{
 				"name": "_description",
 				"type": "string"
+			},
+			{
+				"name": "_price",
+				"type": "uint128"
 			}
 		],
 		"name": "mintpicture",
@@ -119,70 +102,57 @@ var abi =[
 		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [
 			{
-				"indexed": true,
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "_ipfsHash",
+				"type": "string"
+			},
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_description",
+				"type": "string"
+			}
+		],
+		"name": "safeimg",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "from",
 				"type": "address"
 			},
 			{
-				"indexed": true,
 				"name": "to",
 				"type": "address"
 			},
 			{
-				"indexed": true,
 				"name": "tokenId",
 				"type": "uint256"
 			}
 		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "approved",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
+		"name": "safeTransferFrom",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -218,28 +188,6 @@ var abi =[
 		"constant": false,
 		"inputs": [
 			{
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
 				"name": "to",
 				"type": "address"
 			},
@@ -249,6 +197,20 @@ var abi =[
 			}
 		],
 		"name": "setApprovalForAll",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_cut",
+				"type": "uint128"
+			}
+		],
+		"name": "setPublisherCut",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -291,12 +253,6 @@ var abi =[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -309,6 +265,95 @@ var abi =[
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "ApprovalForAll",
+		"type": "event"
 	},
 	{
 		"constant": true,
@@ -477,6 +522,20 @@ var abi =[
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "publisherCut",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint128"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "interfaceId",
@@ -624,7 +683,7 @@ var abi =[
 
 
 //コントラクトアドレス設定する
-var address = "0x056939771022e45003feda84f7f4c455126f3c54";
+var address = "0xba88874d79833f1495babb5264da4d205e89b458";
 
 var contract = web3.eth.contract(abi);
 var instance = contract.at(address);
