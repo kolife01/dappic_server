@@ -687,6 +687,16 @@ app.get('/status', async function(request, response) {
 
 });
 
+app.get('/totalsupply', async function(request, response) {
+
+	var totalSupply = await instance.totalSupply();
+	var n = totalSupply.c[0]
+  
+	response.json(n)
+
+});
+
+
 
 app.get('/getData', async function(request, response) {
 
