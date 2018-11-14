@@ -719,7 +719,9 @@ app.get('/picture', async function(request, response) {
 				owner: `${owner}`,
 				seller: `${picture[5]}`,
 				price: `${picture[6]}`
-      });
+			});
+
+			console.log()
 });
 
 app.get('/status', async function(request, response) {
@@ -798,7 +800,7 @@ app.get('/', async function(request, response) {
 	
 });
 
-// app.listen(3000, () => console.log('http://localhost:3000/'));
+app.listen(3000, () => console.log('http://localhost:3000/'));
 
 app.get('/listen', async function(request, response) {
     var urlParts = url.parse(request.url, true);
